@@ -50,8 +50,16 @@
         if(isset($_POST['maxnumber'])){
             $m = $_POST['maxnumber'];
             $primenumber = array();
+            $start = 2;
+            $c = 0;
+            $count = 0;
+            
+            for ($i = 0; $i < $m - 1; $i++) {
+                $primenumber[$i] = $start;
+                $start++;
+            }
             $k="";
-            if($m<2){
+            if($m<2){ 
         ?>
                 <div class="alert alert-danger" role="alert">
                     <h4 class="alert-heading">ERROR</h4>
@@ -60,6 +68,28 @@
                 </div>
         <?php        
             }else{
+                while (!empty($primenumber)) {
+                    $d = $primenumber[$c];
+                    $dernier = sizeof($primenumber) - 1;
+
+                    if (($d^2) > $primenumber[$dernier]) {
+                        $count = $count + (sizeof($primenumber));
+                        for ($i = 0; $i < sizeof($primenumber); $i++) {
+                            $k .= $primenumber[$i].' | ';
+                        }
+                        break;
+                    } else {
+                        $k .= $primenumber[$c].' | ';
+                        $count = $count + 1;
+                        for ($i = 0; $i < sizeof($primenumber); $i++) {
+                            if (($primenumber[$i] % $d) == 0) {
+
+                                unset($primenumber[$i]);
+                                $primenumber = array_values($primenumber);
+                            }
+                        }
+                    }
+                }
             }
             //var_dump($primenumber);
         }
@@ -71,7 +101,7 @@
             <p>
                 <?php
                 if (isset($_POST['maxnumber'])) {
-                    
+                    echo $k;
                 }
                 ?>
             </p>
