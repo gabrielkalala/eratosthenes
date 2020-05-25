@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
-    <title>index</title>
+    <title>ERATOSTHENES</title>
     <link rel="stylesheet" href="dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" />
@@ -14,11 +14,10 @@
 </head>
 
 <body style="background-color: rgb(219,220,231);font-size: 14px;">
-    <header></header>
     <div>
         <div class="header-blue" style="height: 70px;">
             <nav class="navbar navbar-light navbar-expand-md navigation-clean-search">
-                <div class="container-fluid"><a class="navbar-brand" href="#">Prime Number</a></div>
+                <div class="container-fluid"><a class="navbar-brand" href="#">Eratosthenes</a></div>
             </nav>
         </div>
     </div>
@@ -27,15 +26,15 @@
             <div class="card">
                 <div class="card-body" style="width: 500;">
                     <div class="row">
-                        <h1 class="card-title" style="margin-bottom: 50px;">Enter the number</h1>
+                        <h1 class="card-title" style="margin-bottom: 50px;">Eratosthenes / Show Prime number</h1>
                     </div>
                     <form id="numberForm" class="form-group row" action="index.php" method="post">
 
                         <div class="form-group">
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-lg-4"><label class="col-form-label form-control">Number :</label></div>
-                                    <div class="col-lg-8"><input type="number" class="border rounded form-control " name="primenumber" placeholder="enter the number" min="1" required style="padding: 0px;padding-left: 8px;margin-left: 0px;width: 250px;" /></div>
+                                    <div class="col-lg-4"><label class="col-form-label form-control">Max Number :</label></div>
+                                    <div class="col-lg-8"><input type="number" class="border rounded form-control " name="maxnumber" placeholder="enter the number" min="1" required style="padding: 0px;padding-left: 8px;margin-left: 0px;width: 250px;" /></div>
                                 </div>
                                 <button class="btn btn-primary border rounded" type="submit" style="margin-top: 30px;margin-left: 200px;font-style: normal;">Test</button>
                             </div>
@@ -45,100 +44,36 @@
             </div>
         </div>
     </section>
+
     <section class="col-lg-8 offset-lg-2">
-        <!-- METHOD I -->
         <?php
-        $test = True;
-        $count = 1;
-        $factor = array();
-
-        if (isset($_POST['primenumber'])) {
-            $n = $_POST['primenumber'];
-            for ($i = 2; $i < $n; $i++) {
-                $count = $count + 1;
-                if (($n % $i) == 0) {
-                    $factor[] = $i;
-                    $test = False;
-                }
-            }
-
-            if ($test == True) {
-                $factor[] = $n;
-                $k = "";
-                foreach ($factor as $key => $value) {
-                    $k = $k . '' . $value . " | ";
-                }
-                $status = "" . $n . " is <strong> Prime Number </strong> and Factors are -> " . $k;
-            } else {
-                $factor[] = $n;
-                $k = "";
-                foreach ($factor as $key => $value) {
-                    $k = $k . '' . $value . " | ";
-                }
-                $status = "" . $n . " is composite Number and Factors are -> " . $k;
-            }
-        }
+        if(isset($_POST['maxnumber'])){
+            $m = $_POST['maxnumber'];
+            $primenumber = array();
+            $k="";
+            if($m<2){
         ?>
-        <!-- METHOD II -->
-        <?php
-        $i = 2;
-        $count2 = 0;
-        $countnotprime = 0;
-
-        if (isset($_POST['primenumber'])) {
-            $n = $_POST['primenumber'];
-            $x = $n;
-            $b = sqrt($n);
-            while ($x > 1 && $i <= $b) {
-                $count2 = $count2 + 1;
-
-                while (($x % $i) == 0) {
-                    //echo $i;
-
-                    $x = $x / $i;
-                    $b = sqrt($x);
-                    $countnotprime = $countnotprime + 1;
-
-                    //echo (", ");
-                }
-
-                $i = $i + 1;
+                <div class="alert alert-danger" role="alert">
+                    <h4 class="alert-heading">ERROR</h4>
+                    <hr>
+                    <p>The max number must be greater than 2 (max number > 2 ).</p>
+                </div>
+        <?php        
+            }else{
             }
-
-            if ($countnotprime == 0) {
-                //echo ($n);
-                //echo ("Number of iteration: ");
-                //echo $count2;
-                $c = $count2;
-            }else {
-
-                if ($x > 1) {
-                    echo $x;
-                    echo ("<br>");
-                }
-
-                echo ($n);
-                $countnotprime = $countnotprime + 1;
-                $c = $countnotprime;
-                echo ("Number of iteration: ");
-                echo ($countnotprime);
-            }
+            //var_dump($primenumber);
         }
-        
         ?>
 
         <div class="alert alert-info" role="alert">
             <h4 class="alert-heading">Prime Number</h4>
             <hr>
-            <p>Please give a number --> <?php if (isset($_POST['primenumber'])) {
-                                            echo $n;
-                                        } ?>
-                <br />
-                <?php if (isset($_POST['primenumber'])) {
-                    echo $status;
-                } ?><br />
-                With 1st method number of iteration is : <?php if (isset($_POST['primenumber'])) { echo $count;} ?><br />
-                With 2nd method number of iteration is : <?php if (isset($_POST['primenumber'])) { echo $c;} ?>
+            <p>
+                <?php
+                if (isset($_POST['maxnumber'])) {
+                    
+                }
+                ?>
             </p>
         </div>
     </section>
